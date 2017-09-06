@@ -1,0 +1,35 @@
+Initialize engine version: 5.6.2f1 (a2913c821e27)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 4000 (ID=0x166)
+    Vendor:   Intel
+    VRAM:     912 MB
+    Driver:   10.18.10.4358
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.164 seconds
+Platform assembly: C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\austi\Desktop\github\MultiMaku\MultiMaku\testOne_Data\Managed\System.dll (this message is harmless)
+desktop: 1600x900 60Hz; virtual: 3520x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 3.886483 ms
+Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:7777} time {226666}, last rec time {224172} rtt {10} timeout {2000}
+ClientDisconnected due to error: Timeout
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 39a0 -> priority: 1 
+  Thread -> id: 39a4 -> priority: 1 
