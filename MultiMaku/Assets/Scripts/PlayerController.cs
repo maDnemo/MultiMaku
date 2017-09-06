@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 
 public class PlayerController: NetworkBehaviour {
 
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
 	// Use this for initialization
 	void Start () {
 		
@@ -22,5 +24,30 @@ public class PlayerController: NetworkBehaviour {
 
         transform.Rotate(0, 0, -x);
         transform.Translate(0, z, 0);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Fire();
+        }
+    }
+
+    void Fire()
+    {
+        // Create the Bullet from the Bullet Prefab
+        var bullet = (GameObject)Instantiate(
+            bulletPrefab,
+            bulletSpawn.position,
+            bulletSpawn.rotation);
+
+        // Add velocity to the bullet
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.up * 6;
+
+        // Destroy the bullet after 2 seconds
+        Destroy(bullet, 2.0f);
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        GetComponent<SpriteRenderer>().material.color = Color.blue;
     }
 }
