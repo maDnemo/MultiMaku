@@ -7,15 +7,18 @@ public class Bullet : MonoBehaviour {
     {
         Debug.Log("Im alive!");
     }
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("I hit a player :)");
-        var hit = collision.gameObject;
-        var health = hit.GetComponent<Health>();
-        if (health != null)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            health.TakeDamage(1);
+            Debug.Log("I hit a player :)");
+            var hit = collision.gameObject;
+            var health = hit.GetComponent<Health>();
+            if (health != null)
+            {
+                health.TakeDamage(10);
+            }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }
