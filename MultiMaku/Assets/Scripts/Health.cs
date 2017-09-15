@@ -2,15 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class Health : MonoBehaviour {
+public class Health : NetworkBehaviour {
 
     public const int maxHealth = 100;
+    [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = maxHealth;
     public RectTransform healthBar;
 	
     public void TakeDamage(int amount)
     {
+        if (!isServer)
+        {
+            return;
+        }
+
         Debug.Log("player has been hit");
         currentHealth = currentHealth - amount;
         if (currentHealth <= 0)
@@ -18,8 +25,11 @@ public class Health : MonoBehaviour {
             currentHealth = 0;
             Debug.Log("deaded!");
         }
-
-        healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
         Debug.Log(currentHealth + " " + healthBar.sizeDelta.y);
+    }
+
+    void OnChangeHealth( int currrentHealth )
+    {
+        healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
     }
 }

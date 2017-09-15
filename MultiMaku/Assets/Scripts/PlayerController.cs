@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class PlayerController: NetworkBehaviour {
-
+    public double rateOfFire = 0.3;
+    private double nextFire;
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 	// Use this for initialization
 	void Start () {
-		
-	}
+        nextFire = Time.time;
+    }
 
     // Update is called once per frame
     void Update() {
@@ -25,8 +26,9 @@ public class PlayerController: NetworkBehaviour {
         transform.Rotate(0, 0, -x);
         transform.Translate(0, z, 0);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
+            nextFire = Time.time + rateOfFire;
             CmdFire();
         }
     }
@@ -39,7 +41,6 @@ public class PlayerController: NetworkBehaviour {
             bulletPrefab,
             bulletSpawn.position,
             bulletSpawn.rotation);
-
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6;
 
