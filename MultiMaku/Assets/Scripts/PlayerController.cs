@@ -26,6 +26,12 @@ public class PlayerController: NetworkBehaviour {
         var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
         var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
 
+        if (Input.GetButton("Fire3"))
+        {
+            x = x * (float)0.5;
+            z = z * (float)0.5;
+        }
+
         transform.Rotate(0, 0, -x);
         transform.Translate(0, z, 0);
 
