@@ -13,6 +13,11 @@ public class Health : NetworkBehaviour {
 	
     public void TakeDamage(int amount)
     {
+        if (!isServer)
+        {
+            return;
+        }
+
         Debug.Log("player has been hit");
         currentHealth = currentHealth - amount;
         if (currentHealth <= 0)
