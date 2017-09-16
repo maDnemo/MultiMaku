@@ -23,7 +23,8 @@ public class PlayerController: NetworkBehaviour {
             return;
         }
 
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
+        //var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
+        var x = Input.GetAxis("Horizontal") * Time.deltaTime * 3.0f;
         var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
 
         if (Input.GetButton("Fire3"))
@@ -32,7 +33,8 @@ public class PlayerController: NetworkBehaviour {
             z = z * (float)0.5;
         }
 
-        transform.Rotate(0, 0, -x);
+        //transform.Rotate(0, 0, -x);
+        transform.Translate(x, 0, 0);
         transform.Translate(0, z, 0);
 
         if (Input.GetButton("Fire1") && Time.time > nextPrimaryFire)
