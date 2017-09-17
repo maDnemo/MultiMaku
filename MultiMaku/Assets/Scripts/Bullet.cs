@@ -9,20 +9,18 @@ public class Bullet : MonoBehaviour {
     {
         Debug.Log("Im alive!");
     }
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        //if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("I hit a player :)");
-            var hit = collision.gameObject;
-            var health = hit.GetComponent<Health>();
-            if (health != null)
-            {
-				if (!health.TakeDamage (10))
-				{
-					Destroy(gameObject);
-				}
-            }
-        }
-    }
+    //void OnTriggerEnter2D(Collider2D collision)
+    //{
+        //Debug.Log("I hit a player :)");
+        //var hit = collision.gameObject;
+        //var health = hit.GetComponent<Health>();
+        //if (health != null)
+        //{
+        //    if (!health.TakeDamage (10))
+        //	{
+        //		Destroy(gameObject);
+        //	}
+        //}
+        //Destroy(gameObject);
+    //}
 }

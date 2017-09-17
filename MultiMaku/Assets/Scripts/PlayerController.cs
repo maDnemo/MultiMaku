@@ -85,13 +85,29 @@ public class PlayerController: NetworkBehaviour {
             bulletPrefab,
             bulletSpawn.position,
             bulletSpawn.rotation);
+
+        var bullet2 = (GameObject)Instantiate(
+            bulletPrefab,
+            bulletSpawn.position,
+            bulletSpawn.rotation);
+
+        var bullet3 = (GameObject)Instantiate(
+            bulletPrefab,
+            bulletSpawn.position,
+            bulletSpawn.rotation);
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6;
+        bullet2.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6 + new Vector3(-2, 0, 0);
+        bullet3.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6 + new Vector3(2, 0, 0);
 
         NetworkServer.Spawn(bullet);
+        NetworkServer.Spawn(bullet2);
+        NetworkServer.Spawn(bullet3);
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, 2.0f);
+        Destroy(bullet2, 2.0f);
+        Destroy(bullet3, 2.0f);
     }
 
     public override void OnStartLocalPlayer()

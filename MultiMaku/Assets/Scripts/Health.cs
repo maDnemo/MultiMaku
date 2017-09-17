@@ -21,16 +21,16 @@ public class Health : NetworkBehaviour {
         }
 
 		bool alive = true;
-        Debug.Log("player has been hit");
+        Debug.Log("player has been hit by: " + amount);
+        Debug.Log("player has this many hp left: " + currentHealth);
         currentHealth = currentHealth - amount;
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Debug.Log("deaded!");
+            Debug.Log("Something has died!");
 			alive = false;
 
         }
-        Debug.Log(currentHealth + " " + healthBar.sizeDelta.y);
 		return alive;
     }
 
