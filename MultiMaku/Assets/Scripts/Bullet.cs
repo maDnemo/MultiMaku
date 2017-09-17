@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        //if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("I hit a player :)");
             var hit = collision.gameObject;

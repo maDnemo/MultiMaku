@@ -43,7 +43,6 @@ public class PlayerController: NetworkBehaviour {
 
 
 	// Move and rotate character
-	[Command]
 	void Move()
 	{
 		//var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
