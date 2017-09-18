@@ -4,18 +4,19 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class PlayerController: NetworkBehaviour {
-    
-
+    public bool focus = true;
 	public double rateOfPrimaryFire = 0.3;
-    public double rateOfSecondaryFire = 3.0;
+    public double rateOfSecondaryCharge = 1.5;
+    public double charge = 0;
+    public double maxCharge = 4;  
     private double nextPrimaryFire;
-    private double nextSecondaryFire;
+    private double nextSecondaryCharge;
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 	// Use this for initialization
 	void Start () {
         nextPrimaryFire = Time.time;
-        nextSecondaryFire = Time.time;
+        nextSecondaryCharge = Time.time;
     }
 
     // Update is called once per frame
@@ -34,10 +35,19 @@ public class PlayerController: NetworkBehaviour {
             CmdFire();
         }
 
-        if (Input.GetButton("Fire2") && Time.time > nextSecondaryFire)
+        if (Time.time > nextSecondaryCharge)
         {
-            nextSecondaryFire = Time.time + rateOfSecondaryFire;
+            if (charge < maxCharge)
+            {
+                charge = charge + 1;
+                nextSecondaryCharge = Time.time + rateOfSecondaryCharge;
+            }
+        }
+
+        if (Input.GetButton("Fire2") && charge > 0)
+        {
             CmdSecondFire();
+            charge = charge - 1;
         }
     }
 
@@ -64,17 +74,26 @@ public class PlayerController: NetworkBehaviour {
     void CmdFire()
     {
         // Create the Bullet from the Bullet Prefab
+        // Left Bullet
         var bullet = (GameObject)Instantiate(
             bulletPrefab,
-            bulletSpawn.position,
+            bulletSpawn.position + new Vector3(-2, 0, 0),
+            bulletSpawn.rotation);
+        //Right Bullet
+        var bullet2 = (GameObject)Instantiate(
+            bulletPrefab,
+            bulletSpawn.position + new Vector3(2, 0, 0),
             bulletSpawn.rotation);
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6;
+        bullet2.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6;
 
         NetworkServer.Spawn(bullet);
+        NetworkServer.Spawn(bullet2);
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, 2.0f);
+        Destroy(bullet2, 2.0f);
     }
 
     [Command]
@@ -104,10 +123,10 @@ public class PlayerController: NetworkBehaviour {
         NetworkServer.Spawn(bullet2);
         NetworkServer.Spawn(bullet3);
 
-        // Destroy the bullet after 2 seconds
-        Destroy(bullet, 2.0f);
-        Destroy(bullet2, 2.0f);
-        Destroy(bullet3, 2.0f);
+        // Destroy the bullet after 3 seconds
+        Destroy(bullet, 3.0f);
+        Destroy(bullet2, 3.0f);
+        Destroy(bullet3, 3.0f);
     }
 
     public override void OnStartLocalPlayer()
