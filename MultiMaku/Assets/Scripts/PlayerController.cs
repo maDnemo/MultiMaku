@@ -77,17 +77,17 @@ public class PlayerController: NetworkBehaviour {
         // Left Bullet
         var bullet = (GameObject)Instantiate(
             bulletPrefab,
-            bulletSpawn.position + new Vector3(-2, 0, 0),
+            bulletSpawn.position + new Vector3(-.25f, 0, 0),
             bulletSpawn.rotation);
-        //Right Bullet
+        // Right Bullet
         var bullet2 = (GameObject)Instantiate(
             bulletPrefab,
-            bulletSpawn.position + new Vector3(2, 0, 0),
+            bulletSpawn.position + new Vector3(.25f, 0, 0),
             bulletSpawn.rotation);
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6;
         bullet2.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6;
-
+        // Spawn Bullets
         NetworkServer.Spawn(bullet);
         NetworkServer.Spawn(bullet2);
 
