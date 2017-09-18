@@ -19,17 +19,14 @@ public class BasicAI : MonoBehaviour
 
 	void OnTriggerEnter2D (Collider2D collision)
 	{
-		if (!collision.gameObject.CompareTag ("EBullet")) {
+		if (!collision.gameObject.CompareTag ("EBullet"))
+        {
 			Debug.Log ("Hit by a player :(");
 			Destroy (collision.gameObject);
 			var health = this.GetComponent<Health> ();
-			if (health != null) {
-				if (!health.TakeDamage (10)) {
-					
-					Debug.Log ("Kill urself");
-					Destroy (this.gameObject);
-
-				}
+			if (health != null)
+            {
+                health.TakeDamage(10);
 			} 
 
 		}
