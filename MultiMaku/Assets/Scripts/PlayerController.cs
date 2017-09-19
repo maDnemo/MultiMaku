@@ -92,6 +92,9 @@ public class PlayerController: NetworkBehaviour {
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6;
         bullet2.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6;
+        // Ignore Collision
+        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        Physics2D.IgnoreCollision(bullet2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         // Spawn Bullets
         NetworkServer.Spawn(bullet);
         NetworkServer.Spawn(bullet2);
@@ -124,6 +127,11 @@ public class PlayerController: NetworkBehaviour {
         bullet2.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6 + new Vector3(-2, 0, 0);
         bullet3.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6 + new Vector3(2, 0, 0);
 
+        // Player cant hit their own bullets?
+        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        Physics2D.IgnoreCollision(bullet2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        Physics2D.IgnoreCollision(bullet3.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+
         NetworkServer.Spawn(bullet);
         NetworkServer.Spawn(bullet2);
         NetworkServer.Spawn(bullet3);
@@ -132,6 +140,16 @@ public class PlayerController: NetworkBehaviour {
         Destroy(bullet, 3.0f);
         Destroy(bullet2, 3.0f);
         Destroy(bullet3, 3.0f);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("ouch");
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("hello there");
+            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
+        }
     }
 
     public override void OnStartLocalPlayer()
