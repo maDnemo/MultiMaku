@@ -25,9 +25,6 @@ public class PlayerController: NetworkBehaviour {
         {
             return;
         }
-
-		Move ();
-
         
         if (Input.GetButton("Fire1") && Time.time > nextPrimaryFire)
         {
@@ -51,9 +48,17 @@ public class PlayerController: NetworkBehaviour {
         }
     }
 
+    void FixedUpdate()
+    {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 
-	// Move and rotate character
-	void Move()
+        Move();
+    }
+        // Move and rotate character
+    void Move()
 	{
 		//var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
 		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 3.0f;
