@@ -10,10 +10,14 @@ public class BasicAI : NetworkBehaviour
     public double nextPrimaryFire;
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
+	public AudioClip hitSound;
+	private AudioSource source;
+
     // Use this for initialization
     void Start ()
 	{
         nextPrimaryFire = Time.time + 5;
+		source = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -36,6 +40,7 @@ public class BasicAI : NetworkBehaviour
 			if (health != null)
             {
                 health.TakeDamage(10);
+				source.PlayOneShot(hitSound,1F);
 			} 
 		}
 	}
