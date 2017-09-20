@@ -13,7 +13,7 @@ public class BasicAI : NetworkBehaviour
     // Use this for initialization
     void Start ()
 	{
-        nextPrimaryFire = Time.time;
+        nextPrimaryFire = Time.time + 5;
 	}
 	
 	// Update is called once per frame
@@ -43,7 +43,7 @@ public class BasicAI : NetworkBehaviour
     [Command]
     void CmdFire()
     {
-        player = GameObject.Find("player");
+        player = GameObject.FindWithTag("Player");
         Debug.Log(player.ToString());
         // Create the Bullet from the Bullet Prefab
         var bullet = (GameObject)Instantiate(
@@ -52,8 +52,9 @@ public class BasicAI : NetworkBehaviour
             bulletSpawn.rotation);
 
         Vector3 directon = player.transform.position - bullet.transform.position;
+        directon = directon / directon.magnitude;
         // Add velocity to the bullet
-        bullet.GetComponent<Rigidbody2D>().velocity = directon / 6;
+        bullet.GetComponent<Rigidbody2D>().velocity = directon * 6;
         // Ignore Collision
         Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         // Spawn Bullets

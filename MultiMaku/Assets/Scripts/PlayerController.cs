@@ -150,6 +150,21 @@ public class PlayerController: NetworkBehaviour {
             Debug.Log("hello there");
             Physics2D.IgnoreCollision(collision.gameObject.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
         }
+
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("EBullet"))
+        {
+            Debug.Log("Hit by a enemy :(");
+            Destroy(collision.gameObject);
+            var health = this.GetComponent<Health>();
+            if (health != null)
+            {
+                health.TakeDamage(10);
+            }
+        }
     }
 
     public override void OnStartLocalPlayer()
