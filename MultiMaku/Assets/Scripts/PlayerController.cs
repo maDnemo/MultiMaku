@@ -8,7 +8,8 @@ public class PlayerController: NetworkBehaviour {
 	public double rateOfPrimaryFire = 0.3;
     public double rateOfSecondaryCharge = 1.5;
     public double charge = 0;
-    public double maxCharge = 4;  
+    public double maxCharge = 4;
+    public double bombCount = 3;
     private double nextPrimaryFire;
     private double nextSecondaryCharge;
     public GameObject bulletPrefab;
@@ -48,10 +49,16 @@ public class PlayerController: NetworkBehaviour {
             }
         }
 
-        if (Input.GetButton("Fire2") && charge > 0)
+        if (Input.GetKeyDown("c") && charge > 0)
         {
             SecondFire();
             charge = charge - 1;
+        }
+
+        if (Input.GetKeyDown("space") && bombCount > 0)
+        {
+            ThirdFire();
+            bombCount = bombCount - 1;
         }
     }
 
@@ -92,6 +99,22 @@ public class PlayerController: NetworkBehaviour {
         CmdFireBullet(new Vector3(0, 6, 0), new Vector3(0, 0, 0));
         CmdFireBullet(new Vector3(2, 6, 0), new Vector3(0, 0, 0));
         CmdFireBullet(new Vector3(-2, 6, 0), new Vector3(0, 0, 0));
+    }
+
+    void ThirdFire()
+    {
+        CmdFireBullet(new Vector3(0, 7, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(2, 7, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(-2, 7, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(0, 6, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(2, 6, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(-2, 6, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(0, 5, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(2, 5, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(-2, 5, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(0, 4, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(2, 4, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(-2, 4, 0), new Vector3(0, 0, 0));
     }
 
     [Command]
