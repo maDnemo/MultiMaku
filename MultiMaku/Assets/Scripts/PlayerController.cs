@@ -36,7 +36,7 @@ public class PlayerController: NetworkBehaviour {
         if (Input.GetButton("Fire1") && Time.time > nextPrimaryFire)
         {
             nextPrimaryFire = Time.time + rateOfPrimaryFire;
-            CmdFire();
+            FirstFire();
         }
 
         if (Time.time > nextSecondaryCharge)
@@ -50,7 +50,7 @@ public class PlayerController: NetworkBehaviour {
 
         if (Input.GetButton("Fire2") && charge > 0)
         {
-            CmdSecondFire();
+            SecondFire();
             charge = charge - 1;
         }
     }
@@ -81,71 +81,33 @@ public class PlayerController: NetworkBehaviour {
 		transform.Translate(0, z, 0);
 	}
 
-    [Command]
-    void CmdFire()
+    void FirstFire()
     {
-        // Create the Bullet from the Bullet Prefab
-        // Left Bullet
-        var bullet = (GameObject)Instantiate(
-            bulletPrefab,
-            bulletSpawn.position + new Vector3(-.25f, 0, 0),
-            bulletSpawn.rotation);
-        // Right Bullet
-        var bullet2 = (GameObject)Instantiate(
-            bulletPrefab,
-            bulletSpawn.position + new Vector3(.25f, 0, 0),
-            bulletSpawn.rotation);
-        // Add velocity to the bullet
-        bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6;
-        bullet2.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6;
-        // Ignore Collision
-        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        Physics2D.IgnoreCollision(bullet2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        // Spawn Bullets
-        NetworkServer.Spawn(bullet);
-        NetworkServer.Spawn(bullet2);
+        CmdFireBullet(new Vector3(0, 6, 0), new Vector3(.25f, 0, 0));
+        CmdFireBullet(new Vector3(0, 6, 0), new Vector3(-.25f, 0, 0));
+    }
 
-        // Destroy the bullet after 2 seconds
-        Destroy(bullet, 2.0f);
-        Destroy(bullet2, 2.0f);
+    void SecondFire()
+    {
+        CmdFireBullet(new Vector3(0, 6, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(2, 6, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(-2, 6, 0), new Vector3(0, 0, 0));
     }
 
     [Command]
-    void CmdSecondFire()
+    void CmdFireBullet(Vector3 directon, Vector3 spawnpoint)
     {
         // Create the Bullet from the Bullet Prefab
         var bullet = (GameObject)Instantiate(
             bulletPrefab,
-            bulletSpawn.position,
-            bulletSpawn.rotation);
-
-        var bullet2 = (GameObject)Instantiate(
-            bulletPrefab,
-            bulletSpawn.position,
-            bulletSpawn.rotation);
-
-        var bullet3 = (GameObject)Instantiate(
-            bulletPrefab,
-            bulletSpawn.position,
+            bulletSpawn.position + spawnpoint,
             bulletSpawn.rotation);
         // Add velocity to the bullet
-        bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6;
-        bullet2.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6 + new Vector3(-2, 0, 0);
-        bullet3.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * 6 + new Vector3(2, 0, 0);
-
-        // Player cant hit their own bullets?
-        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        Physics2D.IgnoreCollision(bullet2.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        Physics2D.IgnoreCollision(bullet3.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-
+        bullet.GetComponent<Rigidbody2D>().velocity = directon;
+        // Spawn Bullets
         NetworkServer.Spawn(bullet);
-        NetworkServer.Spawn(bullet2);
-        NetworkServer.Spawn(bullet3);
-
-        // Destroy the bullet after 3 seconds
-        Destroy(bullet, 3.0f);
-        Destroy(bullet2, 3.0f);
-        Destroy(bullet3, 3.0f);
+        // Destroy the bullet after 2 seconds
+        Destroy(bullet, 2.0f);
     }
 
     void OnTriggerEnter2D(Collider2D collision)

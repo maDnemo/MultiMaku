@@ -79,16 +79,12 @@ public class BasicAI : NetworkBehaviour
             bulletPrefab,
             bulletSpawn.position,
             bulletSpawn.rotation);
-
         Vector3 directon = player.transform.position - bullet.transform.position;
         directon = directon / directon.magnitude;
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody2D>().velocity = directon * 6;
-        // Ignore Collision
-        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         // Spawn Bullets
         NetworkServer.Spawn(bullet);
-
         // Destroy the bullet after 2 seconds
         Destroy(bullet, 2.0f);
     }
