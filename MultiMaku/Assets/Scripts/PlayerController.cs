@@ -13,10 +13,15 @@ public class PlayerController: NetworkBehaviour {
     private double nextSecondaryCharge;
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
+	public AudioClip hitSound;
+	private AudioSource source;
+
+
 	// Use this for initialization
 	void Start () {
         nextPrimaryFire = Time.time;
         nextSecondaryCharge = Time.time;
+		source = GetComponent<AudioSource> ();
     }
 
     // Update is called once per frame
@@ -144,7 +149,7 @@ public class PlayerController: NetworkBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("ouch");
+        Debug.Log("oof");
         if (collision.gameObject.tag == "Enemy")
         {
             Debug.Log("hello there");
@@ -162,7 +167,8 @@ public class PlayerController: NetworkBehaviour {
             var health = this.GetComponent<Health>();
             if (health != null)
             {
-                health.TakeDamage(10);
+				health.TakeDamage(10);
+				source.PlayOneShot(hitSound,1F);
             }
         }
     }
