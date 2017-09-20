@@ -1,21 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class BasicAI : MonoBehaviour
+public class BasicAI : NetworkBehaviour
 {
-
-	// Use this for initialization
-	void Start ()
+    public GameObject player;
+    public double rateOfPrimaryFire;
+    public double nextPrimaryFire;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawn;
+    // Use this for initialization
+    void Start ()
 	{
-		
+        nextPrimaryFire = Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		
-	}
+        if (Time.time > nextPrimaryFire)
+        {
+            nextPrimaryFire = Time.time + rateOfPrimaryFire;
+            CmdFire();
+        }
+    }
 
 	void OnTriggerEnter2D (Collider2D collision)
 	{
@@ -28,7 +37,29 @@ public class BasicAI : MonoBehaviour
             {
                 health.TakeDamage(10);
 			} 
-
 		}
 	}
+
+    [Command]
+    void CmdFire()
+    {
+        player = GameObject.Find("player");
+        Debug.Log(player.ToString());
+        // Create the Bullet from the Bullet Prefab
+        var bullet = (GameObject)Instantiate(
+            bulletPrefab,
+            bulletSpawn.position,
+            bulletSpawn.rotation);
+
+        Vector3 directon = player.transform.position - bullet.transform.position;
+        // Add velocity to the bullet
+        bullet.GetComponent<Rigidbody2D>().velocity = directon / 6;
+        // Ignore Collision
+        Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        // Spawn Bullets
+        NetworkServer.Spawn(bullet);
+
+        // Destroy the bullet after 2 seconds
+        Destroy(bullet, 2.0f);
+    }
 }
