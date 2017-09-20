@@ -13,6 +13,12 @@ public class BasicAI : NetworkBehaviour
 	public AudioClip hitSound;
 	private AudioSource source;
 
+	public float speed = 2.0f;
+	private Vector3 heading = new Vector3 (1, 0, 0);
+	private Vector3 displacement = new Vector3 ();
+	private float arc = 0;
+	private float arcSize = 1.5f;
+
     // Use this for initialization
     void Start ()
 	{
@@ -23,6 +29,7 @@ public class BasicAI : NetworkBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		move ();
         if (Time.time > nextPrimaryFire)
         {
             nextPrimaryFire = Time.time + rateOfPrimaryFire;
@@ -43,6 +50,25 @@ public class BasicAI : NetworkBehaviour
 				source.PlayOneShot(hitSound,1F);
 			} 
 		}
+	}
+
+	void move ()
+	{
+		arc -= Mathf.PI / 6 * arcSize * Time.deltaTime;
+		if (arc > Mathf.PI * 2) {
+			arc -= Mathf.PI * 2;
+		}
+
+		heading.x = Mathf.Cos (arc);
+		heading.y = Mathf.Sin (arc);
+
+
+		displacement.x = Time.deltaTime * heading.x * speed;
+		displacement.y = Time.deltaTime * heading.y * speed;
+		transform.Translate (displacement);
+
+
+
 	}
 
     [Command]

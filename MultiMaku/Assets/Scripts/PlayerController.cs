@@ -16,6 +16,8 @@ public class PlayerController: NetworkBehaviour {
 	public AudioClip hitSound;
 	private AudioSource source;
 
+	public float speed = 5.0f;
+
 
 	// Use this for initialization
 	void Start () {
@@ -66,8 +68,8 @@ public class PlayerController: NetworkBehaviour {
     void Move()
 	{
 		//var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 3.0f;
-		var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+		var x = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
+		var z = Input.GetAxis("Vertical") * Time.deltaTime * speed;
 
 		if (Input.GetButton("Fire3"))
 		{
