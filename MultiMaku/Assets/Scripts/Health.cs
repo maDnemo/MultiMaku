@@ -20,8 +20,6 @@ public class Health : NetworkBehaviour {
 			return;
         }
 
-        Debug.Log("player has been hit by: " + amount);
-        Debug.Log("player has this many hp left: " + currentHealth);
         currentHealth = currentHealth - amount;
         if (currentHealth <= 0)
         {
@@ -48,8 +46,7 @@ public class Health : NetworkBehaviour {
     {
         if (isLocalPlayer)
         {
-            // Set the player’s position to origin
-            transform.position = Vector3.zero;
+            transform.position = Vector3.zero - new Vector3(0,3,0);
         }
     }
 }

@@ -67,8 +67,6 @@ public class BasicAI : NetworkBehaviour
 		displacement.y = Time.deltaTime * heading.y * speed;
 		transform.Translate (displacement);
 
-
-
 	}
 
     [Command]

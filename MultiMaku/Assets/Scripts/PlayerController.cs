@@ -61,7 +61,6 @@ public class PlayerController: NetworkBehaviour {
         {
             return;
         }
-
         Move();
     }
         // Move and rotate character
@@ -149,22 +148,10 @@ public class PlayerController: NetworkBehaviour {
         Destroy(bullet3, 3.0f);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("oof");
-        if (collision.gameObject.tag == "Enemy")
-        {
-            Debug.Log("hello there");
-            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<BoxCollider2D>(), GetComponent<BoxCollider2D>());
-        }
-
-    }
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("EBullet"))
         {
-            Debug.Log("Hit by a enemy :(");
             Destroy(collision.gameObject);
             var health = this.GetComponent<Health>();
             if (health != null)
