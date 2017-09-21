@@ -1,26 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System.Collections;
 
-public class Health : NetworkBehaviour {
-    public bool destroyOnDeath;
+public class Health : NetworkBehaviour
+{
+
     public const int maxHealth = 100;
+    public bool destroyOnDeath;
+
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = maxHealth;
+
     public RectTransform healthBar;
 
+    private NetworkStartPosition[] spawnPoints;
 
-	// Returns whether target is still alive or not
-	public void TakeDamage(int amount)
+    void Start()
+    {
+        if (isLocalPlayer)
+        {
+            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+        }
+    }
+
+    public void TakeDamage(int amount)
     {
         if (!isServer)
-        {
-			return;
-        }
+            return;
 
-        currentHealth = currentHealth - amount;
+        currentHealth -= amount;
         if (currentHealth <= 0)
         {
             if (destroyOnDeath)
@@ -30,13 +39,14 @@ public class Health : NetworkBehaviour {
             else
             {
                 currentHealth = maxHealth;
+
+                // called on the Server, invoked on the Clients
                 RpcRespawn();
             }
-
         }
     }
 
-    void OnChangeHealth( int currrentHealth )
+    void OnChangeHealth(int currentHealth)
     {
         healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
     }
@@ -46,7 +56,17 @@ public class Health : NetworkBehaviour {
     {
         if (isLocalPlayer)
         {
-            transform.position = Vector3.zero - new Vector3(0,3,0);
+            // Set the spawn point to origin as a default value
+            Vector3 spawnPoint = Vector3.zero + new Vector3(0,-3,0);
+
+            // If there is a spawn point array and the array is not empty, pick one at random
+            if (spawnPoints != null && spawnPoints.Length > 0)
+            {
+                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+            }
+
+            // Set the player’s position to the chosen spawn point
+            transform.position = spawnPoint;
         }
     }
 }
