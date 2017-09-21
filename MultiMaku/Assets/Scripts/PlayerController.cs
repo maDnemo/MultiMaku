@@ -96,25 +96,28 @@ public class PlayerController: NetworkBehaviour {
 
     void SecondFire()
     {
-        CmdFireBullet(new Vector3(0, 6, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(1, 6, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(-1, 6, 0), new Vector3(0, 0, 0));
         CmdFireBullet(new Vector3(2, 6, 0), new Vector3(0, 0, 0));
         CmdFireBullet(new Vector3(-2, 6, 0), new Vector3(0, 0, 0));
     }
 
     void ThirdFire()
     {
-        CmdFireBullet(new Vector3(0, 7, 0), new Vector3(0, 0, 0));
-        CmdFireBullet(new Vector3(2, 7, 0), new Vector3(0, 0, 0));
-        CmdFireBullet(new Vector3(-2, 7, 0), new Vector3(0, 0, 0));
-        CmdFireBullet(new Vector3(0, 6, 0), new Vector3(0, 0, 0));
-        CmdFireBullet(new Vector3(2, 6, 0), new Vector3(0, 0, 0));
-        CmdFireBullet(new Vector3(-2, 6, 0), new Vector3(0, 0, 0));
-        CmdFireBullet(new Vector3(0, 5, 0), new Vector3(0, 0, 0));
-        CmdFireBullet(new Vector3(2, 5, 0), new Vector3(0, 0, 0));
-        CmdFireBullet(new Vector3(-2, 5, 0), new Vector3(0, 0, 0));
-        CmdFireBullet(new Vector3(0, 4, 0), new Vector3(0, 0, 0));
-        CmdFireBullet(new Vector3(2, 4, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(-3, 3, 0), new Vector3(0, 0, 0));
         CmdFireBullet(new Vector3(-2, 4, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(-2, 5, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(-1, 5, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(-1, 6, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(-1, 7, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(0, 6, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(0, 10, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(3, 3, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(2, 4, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(2, 5, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(1, 5, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(1, 6, 0), new Vector3(0, 0, 0));
+        CmdFireBullet(new Vector3(1, 7, 0), new Vector3(0, 0, 0));
     }
 
     [Command]
