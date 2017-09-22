@@ -8,6 +8,8 @@ public class Health : NetworkBehaviour
 
     public const int maxHealth = 100;
     public bool destroyOnDeath;
+	public AudioClip hitSound;
+	private AudioSource source;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = maxHealth;
@@ -21,6 +23,7 @@ public class Health : NetworkBehaviour
         if (isLocalPlayer)
         {
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+			source = GetComponent<AudioSource> ();
         }
     }
 
@@ -32,6 +35,7 @@ public class Health : NetworkBehaviour
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
+			source.PlayOneShot(hitSound,1F);
             if (destroyOnDeath)
             {
                 Destroy(gameObject);

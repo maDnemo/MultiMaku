@@ -12,6 +12,8 @@ public class BasicAI : NetworkBehaviour
     public Transform bulletSpawn;
 	public AudioClip hitSound;
 	private AudioSource source;
+	public AudioClip shootSound;
+	private AudioSource source2;
 
 	public float speed = 2.0f;
 	private Vector3 heading = new Vector3 (1, 0, 0);
@@ -24,6 +26,7 @@ public class BasicAI : NetworkBehaviour
 	{
         nextPrimaryFire = Time.time + 5;
 		source = GetComponent<AudioSource> ();
+		source2 = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -85,6 +88,7 @@ public class BasicAI : NetworkBehaviour
         bullet.GetComponent<Rigidbody2D>().velocity = directon * 6;
         // Spawn Bullets
         NetworkServer.Spawn(bullet);
+		source2.PlayOneShot(shootSound,1F);
         // Destroy the bullet after 2 seconds
         Destroy(bullet, 2.0f);
     }

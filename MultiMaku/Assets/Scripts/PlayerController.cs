@@ -15,7 +15,9 @@ public class PlayerController: NetworkBehaviour {
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 	public AudioClip hitSound;
+	public AudioClip shootSound;
 	private AudioSource source;
+	private AudioSource source2;
 
 	public float speed = 5.0f;
 
@@ -25,6 +27,7 @@ public class PlayerController: NetworkBehaviour {
         nextPrimaryFire = Time.time;
         nextSecondaryCharge = Time.time;
 		source = GetComponent<AudioSource> ();
+		source2 = GetComponent<AudioSource> ();
     }
 
     // Update is called once per frame
@@ -92,6 +95,7 @@ public class PlayerController: NetworkBehaviour {
     {
         CmdFireBullet(new Vector3(0, 6, 0), new Vector3(.25f, 0, 0));
         CmdFireBullet(new Vector3(0, 6, 0), new Vector3(-.25f, 0, 0));
+		source2.PlayOneShot(shootSound,1F);
     }
 
     void SecondFire()
