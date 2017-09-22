@@ -35,15 +35,14 @@ public class Health : NetworkBehaviour
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
-			source.PlayOneShot(hitSound,1F);
             if (destroyOnDeath)
             {
                 Destroy(gameObject);
             }
             else
             {
+                source.PlayOneShot(hitSound, 1F);
                 currentHealth = maxHealth;
-
                 // called on the Server, invoked on the Clients
                 RpcRespawn();
             }
