@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class PlayerController: NetworkBehaviour {
@@ -18,6 +19,8 @@ public class PlayerController: NetworkBehaviour {
 	public AudioClip shootSound;
 	private AudioSource source;
 	private AudioSource source2;
+    public Text hpText;
+    public Text chargeText;
 
 	public float speed = 5.0f;
 
