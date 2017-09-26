@@ -17,8 +17,12 @@ public class PlayerController: NetworkBehaviour {
     public Transform bulletSpawn;
 	public AudioClip hitSound;
 	public AudioClip shootSound;
+	public AudioClip chargeSound;
+	public AudioClip bombSound;
 	private AudioSource source;
 	private AudioSource source2;
+	private AudioSource source3;
+	private AudioSource source4;
     public Text hpText;
     public Text chargeText;
 
@@ -31,6 +35,8 @@ public class PlayerController: NetworkBehaviour {
         nextSecondaryCharge = Time.time;
 		source = GetComponent<AudioSource> ();
 		source2 = GetComponent<AudioSource> ();
+		source3 = GetComponent<AudioSource> ();
+		source4 = GetComponent<AudioSource> ();
     }
 
     // Update is called once per frame
@@ -107,6 +113,7 @@ public class PlayerController: NetworkBehaviour {
         CmdFireBullet(new Vector3(-1, 6, 0), new Vector3(0, 0, 0));
         CmdFireBullet(new Vector3(2, 6, 0), new Vector3(0, 0, 0));
         CmdFireBullet(new Vector3(-2, 6, 0), new Vector3(0, 0, 0));
+		source3.PlayOneShot(chargeSound,1F);
     }
 
     void ThirdFire()
@@ -125,6 +132,7 @@ public class PlayerController: NetworkBehaviour {
         CmdFireBullet(new Vector3(1, 5, 0), new Vector3(0, 0, 0));
         CmdFireBullet(new Vector3(1, 6, 0), new Vector3(0, 0, 0));
         CmdFireBullet(new Vector3(1, 7, 0), new Vector3(0, 0, 0));
+		source4.PlayOneShot(bombSound,1F);
     }
 
     [Command]
