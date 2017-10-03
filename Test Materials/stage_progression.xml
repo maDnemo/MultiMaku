@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	Data will be stored as follows
+
+	Enemy
+		Enemy Type
+		Spawn X
+		Spawn Y
+		Movement Pattern
+		Shoot Pattern
+		Health
+		Spawn Delay/Cooldown
+		-->
+
+
+<level_data>
+	<enemy>
+		<type>basic</type>
+		<spawnX>0</spawnX>
+		<spawnY>2.5</spawnY>
+		<move>patternA</move>
+		<Shoot>pattern1</Shoot>
+		<health>100</health>
+		<delay>20</delay>
+	</enemy>
+</level_data>

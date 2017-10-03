@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/_Scene/Main.unity
+- path: Assets/_Scene/broken_shit.unity
   isLoaded: 1
   isActive: 1
